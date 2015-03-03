@@ -4,6 +4,7 @@ package com.devindi.vk.messenger.demo.activity;
 import android.app.AlertDialog;
 import android.os.Bundle;
 import com.devindi.vk.messenger.demo.R;
+import com.devindi.vk.messenger.demo.facade.ConversationsFacade;
 import com.vk.sdk.*;
 import com.vk.sdk.api.VKError;
 import com.vk.sdk.dialogs.VKCaptchaDialog;
@@ -31,7 +32,7 @@ public class ConversationsActivity extends BaseVKActivity {
 
     private void loadConversations()
     {
-
+        new ConversationsFacade().loadConversations(0);
     }
 
     private final VKSdkListener sdkListener = new VKSdkListener() {
