@@ -2,56 +2,53 @@ package com.devindi.vk.messenger.demo.facade;
 
 import android.os.AsyncTask;
 import android.util.Log;
+import com.devindi.vk.messenger.demo.activity.ConversationsActivity;
+import com.devindi.vk.messenger.demo.model.Conversation;
 import com.vk.sdk.api.*;
 import com.vk.sdk.api.model.VKApiChat;
+import org.json.JSONArray;
+import org.json.JSONException;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ConversationsFacade {
 
-    public void loadConversations(int page)
-    {
-        new LoadConversationsTask().execute(page);
+    private final ConversationsActivity activity;
+
+    public ConversationsFacade(ConversationsActivity activity) {
+        this.activity = activity;
     }
 
-
-
-
-    private class LoadConversationsTask extends AsyncTask<Integer, Void, List<VKApiChat>>
+    public void loadConversations(int page)
     {
+//        new LoadConversationsTask().execute(page);
 
-        /**
-         *
-         * @param params number of page.
-         * @return
-         */
-        @Override
-        protected List<VKApiChat> doInBackground(Integer... params) {
-            Log.e("TAG", "DO IT");
-            //Load for page number 'params[0]'
-            //Page is 200 dialogs.
-            //Look to server
-//            VKRequest request = new VKRequest("execute.getChats", VKParameters.from(VKApiConst.OFFSET, params[0]));
-            //Load chats from first 200 dialogs
-            VKRequest request = new VKRequest("execute.getChats");
-            request.executeWithListener(new VKRequest.VKRequestListener() {
-                @Override
-                public void onComplete(VKResponse response) {
-                    //Do complete stuff
-                    Log.e("TAG", response.json.toString());
-                }
-                @Override
-                public void onError(VKError error) {
-                    //Do error stuff
-                    Log.e("TAG", error.toString());
-                }
-                @Override
-                public void attemptFailed(VKRequest request, int attemptNumber, int totalAttempts) {
-                    //I don't really believe in progress
-                    Log.e("TAG", attemptNumber + " / " + totalAttempts);
-                }
-            });
-            return null;
-        }
+        Log.e("TAG", "DO IT");
+
+
+        VKRequest request = new VKRequest("execute.getChats");
+        request.executeWithListener(new VKRequest.VKRequestListener() {
+            @Override
+            public void onComplete(VKResponse response) {
+                //Do complete stuff
+                Log.e("TAG", response.json.toString());
+                final List<Conversation> chatList = new ArrayList<Conversation>();
+                JSONArray chats = response.json.optJSONObject("response").optJSONArray("chats");
+                chatList.add(Conversation.parse(chats.optJSONObject(0).optJSONObject("message")));
+                Log.e("asd", chatList.toString());
+                activity.onLoadConversations(chatList);
+            }
+            @Override
+            public void onError(VKError error) {
+                //Do error stuff
+                Log.e("TAG", error.toString());
+            }
+            @Override
+            public void attemptFailed(VKRequest request, int attemptNumber, int totalAttempts) {
+                //I don't really believe in progress
+                Log.e("TAG", attemptNumber + " / " + totalAttempts);
+            }
+        });
     }
 }
