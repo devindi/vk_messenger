@@ -75,8 +75,7 @@ public class ConversationViewAdapter extends BaseAdapter {
         viewHolder.date.setText(StringHelper.format(item.getDate()));
         viewHolder.body.setText(item.getBody());
 
-        if(!item.hasUrls())
-            facade.loadAvatarUrls(item.getUsers(), new AvatarManager(viewHolder.avatar));
+        facade.loadAvatarUrls(item.getUsers(), new AvatarManager(viewHolder.avatar, item));
 
         return convertView;
     }
@@ -98,9 +97,11 @@ public class ConversationViewAdapter extends BaseAdapter {
     private class AvatarManager extends VKRequest.VKRequestListener {
 
         private AvatarView avatarView;
+        private Conversation item;
 
-        public AvatarManager(AvatarView avatarView) {
+        public AvatarManager(AvatarView avatarView, Conversation item) {
             this.avatarView = avatarView;
+            this.item = item;
         }
 
         @Override
@@ -110,7 +111,9 @@ public class ConversationViewAdapter extends BaseAdapter {
             for(int i = 0; i < Math.min(users.length(), 4); i++)
             {
                 avatarView.setCount(i+1);
-                Glide.with(context).load(users.optJSONObject(i).optString("photo_100")).into(avatarView.getImageView(i));
+                String url = users.optJSONObject(i).optString("photo_100");
+                Glide.with(context).load(url).into(avatarView.getImageView(i));
+                item.addUrl(url);
             }
         }
     }

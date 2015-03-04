@@ -2,7 +2,10 @@ package com.devindi.vk.messenger.demo.activity;
 
 
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import com.devindi.vk.messenger.demo.R;
 import com.devindi.vk.messenger.demo.adapter.ConversationViewAdapter;
@@ -30,7 +33,7 @@ public class ConversationsActivity extends BaseVKActivity {
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_conversations_list);
+        setContentView(R.layout.activity_list);
         facade = new ConversationsFacade(this);
         VKSdk.initialize(sdkListener, APP_ID);
         if (VKSdk.wakeUpSession())
@@ -42,6 +45,18 @@ public class ConversationsActivity extends BaseVKActivity {
         adapter = new ConversationViewAdapter(this, facade);
         conversationsList = (ListView) findViewById(R.id.list_conversations);
         conversationsList.setAdapter(adapter);
+        conversationsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(ConversationsActivity.this, ConversationActivity.class);
+                Conversation item = adapter.getItem(position);
+                intent.putExtra("chat_id", item.getId());
+                intent.putExtra("title", item.getTitle());
+                intent.putExtra("count", item.getUsersCount());
+                intent.putExtra("urls", item.getUrls());
+                startActivity(intent);
+            }
+        });
     }
 
     public void onLoadConversations(List<Conversation> newConversations)
