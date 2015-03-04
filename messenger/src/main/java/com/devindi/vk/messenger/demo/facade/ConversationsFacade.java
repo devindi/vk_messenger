@@ -51,7 +51,5 @@ public class ConversationsFacade {
     {
         VKRequest request = VKApi.users().get(VKParameters.from(VKApiConst.FIELDS, "photo_100", VKApiConst.USER_IDS, users.toString()));
         request.executeWithListener(listener);
-
-
     }
 }

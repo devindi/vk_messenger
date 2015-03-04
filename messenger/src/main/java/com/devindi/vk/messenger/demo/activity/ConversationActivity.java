@@ -31,7 +31,7 @@ public class ConversationActivity extends BaseVKActivity {
         super.onCreate(savedInstanceState);
         facade = new MessagesFacade(this);
         setContentView(R.layout.activity_list);
-        adapter = new MessageViewAdapter(this);
+        adapter = new MessageViewAdapter(this, facade);
         messagesList = (ListView) findViewById(R.id.list_conversations);
         messagesList.setAdapter(adapter);
         ActionBar actionBar = getSupportActionBar();
@@ -52,7 +52,7 @@ public class ConversationActivity extends BaseVKActivity {
         }
         ActionBar.LayoutParams layoutParams = new ActionBar.LayoutParams(
                 actionBarHeight,
-                actionBarHeight, Gravity.RIGHT
+                actionBarHeight, Gravity.END
                 | Gravity.CENTER_VERTICAL);
         layoutParams.rightMargin = 10;
         avatarView.setLayoutParams(layoutParams);
