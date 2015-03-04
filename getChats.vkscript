@@ -1,0 +1,21 @@
+var offset = Args.offset;
+if(!offset)
+offset = 0;
+var count = 200;
+offset = offset*count;
+
+var chats = [];
+var dialogs = API.messages.getDialogs({"offset":offset, "count":count});
+var arrayLength = dialogs.items.length;
+
+var i = 0;
+while(i != arrayLength)
+{
+    if(dialogs.items[i].message.chat_id)
+    {
+        var message = dialogs.items[i].message;
+        chats.push(message);
+    }
+    i = i+1;
+}
+return {"dialog_count": dialogs.count, "chats": chats};
