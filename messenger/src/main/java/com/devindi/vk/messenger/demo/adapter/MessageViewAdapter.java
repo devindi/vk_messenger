@@ -89,7 +89,6 @@ public class MessageViewAdapter extends BaseAdapter {
 
     public void add(List<VKApiMessage> newMessages) {
         messages.addAll(newMessages);
-        Log.e("MSG@", newMessages.toString());
         notifyDataSetChanged();
     }
 

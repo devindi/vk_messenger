@@ -26,12 +26,9 @@ public class ConversationsFacade {
         request.executeWithListener(new VKRequest.VKRequestListener() {
             @Override
             public void onComplete(VKResponse response) {
-                //Do complete stuff
-                Log.e("TAG", response.json.toString());
                 final List<Conversation> chatList = new ArrayList<Conversation>();
                 JSONArray chats = response.json.optJSONObject("response").optJSONArray("chats");
                 chatList.add(Conversation.parse(chats.optJSONObject(0)));
-                Log.e("asd", chatList.toString());
                 activity.onLoadConversations(chatList);
             }
             @Override

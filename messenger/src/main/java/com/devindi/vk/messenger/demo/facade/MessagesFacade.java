@@ -2,7 +2,6 @@ package com.devindi.vk.messenger.demo.facade;
 
 import android.util.Log;
 import com.devindi.vk.messenger.demo.activity.ConversationActivity;
-import com.devindi.vk.messenger.demo.adapter.MessageViewAdapter;
 import com.vk.sdk.api.*;
 import com.vk.sdk.api.model.VKApiMessage;
 import org.json.JSONArray;
