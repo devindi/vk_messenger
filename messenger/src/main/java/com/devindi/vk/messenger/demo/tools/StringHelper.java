@@ -16,6 +16,6 @@ public class StringHelper {
         else
             df = new SimpleDateFormat("MM/dd/yyyy HH:mm");*/
         df = new SimpleDateFormat("HH:mm");
-        return df.format(new Date(date));
+        return df.format(new Date(date * 1000));
     }
 }
