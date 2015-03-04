@@ -14,6 +14,7 @@ public class Conversation {
     private long date;
     private List<Integer> users;
     private List<String> userAvatars;
+    private int usersCount;
 
     private Conversation()
     {
@@ -28,6 +29,7 @@ public class Conversation {
         conversation.title = object.optString("title");
         conversation.id = object.optInt("chat_id");
         conversation.date = object.optLong("date");
+        conversation.usersCount = object.optInt("users_count");
         JSONArray users = object.optJSONArray("chat_active");
         if(users == null) return conversation;
         for(int i = 0; i<users.length(); i++)
@@ -57,9 +59,22 @@ public class Conversation {
         return users;
     }
 
+    public int getUsersCount()
+    {
+        return usersCount;
+    }
+
     public boolean hasUrls()
     {
         return !userAvatars.isEmpty();
+    }
+
+    public String[] getUrls() {
+        return userAvatars.toArray(new String[userAvatars.size()]);
+    }
+
+    public void addUrl(String url) {
+        userAvatars.add(url);
     }
 
     @Override
