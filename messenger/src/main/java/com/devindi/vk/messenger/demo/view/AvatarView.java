@@ -1,28 +1,22 @@
 package com.devindi.vk.messenger.demo.view;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
 import android.util.AttributeSet;
-import android.widget.ImageView;
+import android.widget.FrameLayout;
+import com.devindi.vk.messenger.demo.R;
 
-public class AvatarView extends ImageView {
+public class AvatarView extends FrameLayout {
     public AvatarView(Context context) {
-        super(context);
+        this(context, null);
     }
 
     public AvatarView(Context context, AttributeSet attrs) {
         super(context, attrs);
+        init(context);
     }
 
-    public void AddImage(Bitmap bitmap)
+    private void init(Context context)
     {
-
-    }
-
-    //TODO implement
-    @Override
-    protected void onDraw(Canvas canvas) {
-        super.onDraw(canvas);
+        inflate(context, R.layout.view_avatar, this);
     }
 }

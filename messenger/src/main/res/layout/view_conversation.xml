@@ -4,12 +4,12 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:gravity="center_vertical"
-              android:paddingLeft="10dp"
               android:paddingRight="10dp">
 
     <com.devindi.vk.messenger.demo.view.AvatarView
             android:layout_width="75dp"
             android:layout_height="75dp"
+            android:layout_margin="5dp"
             android:id="@+id/avatar"/>
 
     <LinearLayout
