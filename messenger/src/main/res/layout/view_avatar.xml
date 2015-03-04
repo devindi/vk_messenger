@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:orientation="horizontal"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:layout_weight="1">
+
+        <com.joooonho.SelectableRoundedImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:layout_margin="1dp"
+                android:id="@+id/topL"
+                android:src="@drawable/ic_launcher"
+                app:sriv_left_top_corner_radius="100dip"
+                />
+
+        <com.joooonho.SelectableRoundedImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:layout_margin="1dp"
+                android:id="@+id/bottomL"
+                android:visibility="gone"
+                app:sriv_left_bottom_corner_radius="100dip"
+                />
+
+    </LinearLayout>
+
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:id="@+id/right_column"
+            android:layout_weight="1">
+
+        <com.joooonho.SelectableRoundedImageView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:visibility="gone"
+                android:adjustViewBounds="true"
+                android:layout_margin="1dp"
+                android:id="@+id/topR"
+                app:sriv_right_top_corner_radius="100dip"
+                />
+
+        <com.joooonho.SelectableRoundedImageView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:adjustViewBounds="true"
+                android:visibility="gone"
+                android:layout_margin="1dp"
+                app:sriv_right_bottom_corner_radius="100dip"
+                android:id="@+id/bottomR"
+                />
+
+
+    </LinearLayout>
+</LinearLayout>
