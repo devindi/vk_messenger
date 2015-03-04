@@ -9,6 +9,7 @@
             android:orientation="vertical"
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:gravity="center_vertical"
             android:layout_weight="1">
 
         <com.joooonho.SelectableRoundedImageView
@@ -17,7 +18,7 @@
                 android:adjustViewBounds="true"
                 android:layout_margin="1dp"
                 android:id="@+id/topL"
-                android:src="@drawable/photo"
+                android:src="@drawable/ic_launcher"
                 app:sriv_left_top_corner_radius="100dip"
                 />
 
@@ -27,7 +28,7 @@
                 android:adjustViewBounds="true"
                 android:layout_margin="1dp"
                 android:id="@+id/bottomL"
-                android:src="@drawable/photo"
+                android:visibility="gone"
                 app:sriv_left_bottom_corner_radius="100dip"
                 />
 
@@ -37,12 +38,15 @@
             android:orientation="vertical"
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:id="@+id/right_column"
             android:layout_weight="1">
 
         <com.joooonho.SelectableRoundedImageView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:src="@drawable/photo"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:visibility="gone"
                 android:adjustViewBounds="true"
                 android:layout_margin="1dp"
                 android:id="@+id/topR"
@@ -51,9 +55,10 @@
 
         <com.joooonho.SelectableRoundedImageView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
                 android:adjustViewBounds="true"
-                android:src="@drawable/photo"
+                android:visibility="gone"
                 android:layout_margin="1dp"
                 app:sriv_right_bottom_corner_radius="100dip"
                 android:id="@+id/bottomR"

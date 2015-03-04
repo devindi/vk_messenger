@@ -1,5 +1,6 @@
 package com.devindi.vk.messenger.demo.model;
 
+import com.devindi.vk.messenger.demo.tools.StringHelper;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -12,8 +13,13 @@ public class Conversation {
     private String body;
     private long date;
     private List<Integer> users;
+    private List<String> userAvatars;
 
-    private Conversation(){}
+    private Conversation()
+    {
+        users = new ArrayList<Integer>(0);
+        userAvatars = new ArrayList<String>(0);
+    }
 
     public static Conversation parse(JSONObject object)
     {
@@ -22,7 +28,6 @@ public class Conversation {
         conversation.title = object.optString("title");
         conversation.id = object.optInt("chat_id");
         conversation.date = object.optLong("date");
-        conversation.users = new ArrayList<Integer>(0);
         JSONArray users = object.optJSONArray("chat_active");
         if(users == null) return conversation;
         for(int i = 0; i<users.length(); i++)
@@ -50,6 +55,11 @@ public class Conversation {
 
     public List<Integer> getUsers() {
         return users;
+    }
+
+    public boolean hasUrls()
+    {
+        return !userAvatars.isEmpty();
     }
 
     @Override

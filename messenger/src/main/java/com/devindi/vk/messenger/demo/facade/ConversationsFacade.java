@@ -22,11 +22,6 @@ public class ConversationsFacade {
 
     public void loadConversations(int page)
     {
-//        new LoadConversationsTask().execute(page);
-
-        Log.e("TAG", "DO IT");
-
-
         VKRequest request = new VKRequest("execute.getChats");
         request.executeWithListener(new VKRequest.VKRequestListener() {
             @Override
@@ -35,7 +30,7 @@ public class ConversationsFacade {
                 Log.e("TAG", response.json.toString());
                 final List<Conversation> chatList = new ArrayList<Conversation>();
                 JSONArray chats = response.json.optJSONObject("response").optJSONArray("chats");
-                chatList.add(Conversation.parse(chats.optJSONObject(0).optJSONObject("message")));
+                chatList.add(Conversation.parse(chats.optJSONObject(0)));
                 Log.e("asd", chatList.toString());
                 activity.onLoadConversations(chatList);
             }
@@ -50,5 +45,13 @@ public class ConversationsFacade {
                 Log.e("TAG", attemptNumber + " / " + totalAttempts);
             }
         });
+    }
+
+    public void loadAvatarUrls(List<Integer> users, VKRequest.VKRequestListener listener)
+    {
+        VKRequest request = VKApi.users().get(VKParameters.from(VKApiConst.FIELDS, "photo_100", VKApiConst.USER_IDS, users.toString()));
+        request.executeWithListener(listener);
+
+
     }
 }

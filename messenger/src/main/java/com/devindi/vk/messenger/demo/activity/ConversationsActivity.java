@@ -3,7 +3,6 @@ package com.devindi.vk.messenger.demo.activity;
 
 import android.app.AlertDialog;
 import android.os.Bundle;
-import android.widget.BaseAdapter;
 import android.widget.ListView;
 import com.devindi.vk.messenger.demo.R;
 import com.devindi.vk.messenger.demo.adapter.ConversationViewAdapter;
@@ -22,6 +21,7 @@ public class ConversationsActivity extends BaseVKActivity {
             VKScope.MESSAGES
     };
     private static final String APP_ID = "4792768";
+    private ConversationsFacade facade;
 
     private ListView conversationsList;
     private ConversationViewAdapter adapter;
@@ -31,6 +31,7 @@ public class ConversationsActivity extends BaseVKActivity {
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_conversations_list);
+        facade = new ConversationsFacade(this);
         VKSdk.initialize(sdkListener, APP_ID);
         if (VKSdk.wakeUpSession())
             loadConversations();
@@ -38,7 +39,7 @@ public class ConversationsActivity extends BaseVKActivity {
         {
             VKSdk.authorize(SCOPE, true, false);
         }
-        adapter = new ConversationViewAdapter(this);
+        adapter = new ConversationViewAdapter(this, facade);
         conversationsList = (ListView) findViewById(R.id.list_conversations);
         conversationsList.setAdapter(adapter);
     }
@@ -50,7 +51,7 @@ public class ConversationsActivity extends BaseVKActivity {
 
     private void loadConversations()
     {
-        new ConversationsFacade(this).loadConversations(0);
+        facade.loadConversations(0);
     }
 
     private final VKSdkListener sdkListener = new VKSdkListener() {
